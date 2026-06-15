@@ -1,6 +1,7 @@
 {
-  "provider": "github",
-  "status": "check_logs",
-  "repo_url": null,
+  "provider": "github_pages",
+  "status": "live",
+  "url": "https://victorhaleinc-boop.github.io/meal-prep-cost-calculator/",
+  "repo_url": "https://github.com/victorhaleinc-boop/meal-prep-cost-calculator",
   "folder": "C:\\Users\\mards\\Desktop\\entrepreneur_agent\\workspace\\products\\meal_prep_cost_calculator\\site"
 }
