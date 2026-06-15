@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Meal Prep Cost Calculator</title>
+    <meta
+      name="description"
+      content="Free meal prep cost calculator for batch cooks who want cost per serving and macros per serving in one workflow."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="page-shell">
+      <header class="hero">
+        <p class="eyebrow">Victor Hale Inc. Free Meal Prep Tool</p>
+        <h1>Price a batch, split the servings, and see the macros before you prep it again.</h1>
+        <p class="hero-copy">
+          This calculator keeps meal prep practical: enter the ingredients you actually used, set the serving count,
+          and instantly see batch cost, cost per serving, and macros per serving in one place.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#calculator">Open the calculator</a>
+          <a class="button button-secondary" href="#paid-pack">See the paid workbook</a>
+        </div>
+      </header>
+
+      <section class="proof-strip" aria-label="Meal prep tool benefits">
+        <article>
+          <span>Budget clarity</span>
+          <p>See whether a cheap-looking batch is actually cheap once protein, sauces, and portions are counted honestly.</p>
+        </article>
+        <article>
+          <span>Macro clarity</span>
+          <p>Check calories, protein, carbs, and fat for the whole batch and each serving without bouncing between apps.</p>
+        </article>
+        <article>
+          <span>Repeatability</span>
+          <p>Use the grocery rollup to see what you bought for the batch so good prep days are easier to repeat next week.</p>
+        </article>
+      </section>
+
+      <main class="content-grid">
+        <section class="card calculator-card" id="calculator">
+          <div class="card-head">
+            <p class="kicker">Free calculator</p>
+            <h2>Batch cost and macros in one quick pass</h2>
+          </div>
+
+          <div class="recipe-head">
+            <label>
+              Recipe name
+              <input id="recipeName" type="text" value="Chicken Rice Bowls" placeholder="Ex: High-protein burrito bowls">
+            </label>
+            <label>
+              Servings
+              <input id="servings" type="number" min="1" step="1" value="4">
+            </label>
+          </div>
+
+          <div class="table-card">
+            <div class="table-head">
+              <div>
+                <p class="kicker">Ingredients</p>
+                <h3>Enter the amount used for this batch</h3>
+              </div>
+              <button class="button button-secondary" id="addIngredient" type="button">Add ingredient</button>
+            </div>
+            <div class="ingredient-table-wrap">
+              <table class="ingredient-table">
+                <thead>
+                  <tr>
+                    <th>Ingredient</th>
+                    <th>Qty</th>
+                    <th>Unit</th>
+                    <th>Cost used ($)</th>
+                    <th>Calories</th>
+                    <th>Protein (g)</th>
+                    <th>Carbs (g)</th>
+                    <th>Fat (g)</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody id="ingredientBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="results-panel">
+            <div class="result-box accent">
+              <span>Total batch cost</span>
+              <strong id="totalCost">$0.00</strong>
+            </div>
+            <div class="result-box">
+              <span>Cost per serving</span>
+              <strong id="costPerServing">$0.00</strong>
+            </div>
+            <div class="result-box">
+              <span>Total calories</span>
+              <strong id="totalCalories">0</strong>
+            </div>
+            <div class="result-box">
+              <span>Calories per serving</span>
+              <strong id="caloriesPerServing">0</strong>
+            </div>
+            <div class="result-box">
+              <span>Total protein</span>
+              <strong id="totalProtein">0g</strong>
+            </div>
+            <div class="result-box">
+              <span>Protein per serving</span>
+              <strong id="proteinPerServing">0g</strong>
+            </div>
+            <div class="result-box">
+              <span>Total carbs</span>
+              <strong id="totalCarbs">0g</strong>
+            </div>
+            <div class="result-box">
+              <span>Carbs per serving</span>
+              <strong id="carbsPerServing">0g</strong>
+            </div>
+            <div class="result-box">
+              <span>Total fat</span>
+              <strong id="totalFat">0g</strong>
+            </div>
+            <div class="result-box">
+              <span>Fat per serving</span>
+              <strong id="fatPerServing">0g</strong>
+            </div>
+          </div>
+
+          <div class="summary-grid">
+            <section class="panel">
+              <div class="panel-head">
+                <p class="kicker">Ingredient cost breakdown</p>
+                <h3>What is actually driving the batch price</h3>
+              </div>
+              <div id="costBreakdown" class="stack-list"></div>
+            </section>
+
+            <section class="panel">
+              <div class="panel-head">
+                <p class="kicker">Grocery rollup</p>
+                <h3>What you used for this prep session</h3>
+              </div>
+              <div id="groceryRollup" class="stack-list"></div>
+            </section>
+          </div>
+
+          <section class="panel copy-panel">
+            <div class="panel-head">
+              <p class="kicker">Shareable snapshot</p>
+              <h3>Copy a clean summary</h3>
+            </div>
+            <p id="summaryText" class="summary-text"></p>
+            <textarea id="summaryOutput" readonly aria-label="Meal prep summary"></textarea>
+            <div class="hero-actions">
+              <button class="button button-primary" id="copySummary" type="button">Copy summary</button>
+            </div>
+          </section>
+        </section>
+
+        <section class="card stack-card" id="paid-pack">
+          <div class="card-head">
+            <p class="kicker">Paid pack - $19</p>
+            <h2>What the workbook pack adds</h2>
+          </div>
+          <div class="workflow-list">
+            <article>
+              <h3>Reusable meal library</h3>
+              <p>Keep repeat meals in one workbook instead of rebuilding the same math from scratch every week.</p>
+            </article>
+            <article>
+              <h3>Weekly prep planner</h3>
+              <p>Compare several meals at once and decide which batch best fits budget, calories, and protein targets.</p>
+            </article>
+            <article>
+              <h3>Grocery budget tracker</h3>
+              <p>Roll individual batches into a weekly or monthly food budget so prep decisions stay grounded in actual spend.</p>
+            </article>
+            <article>
+              <h3>Example templates</h3>
+              <p>Start with filled sample meals so the spreadsheet is useful immediately instead of feeling like a blank admin task.</p>
+            </article>
+          </div>
+          <p class="micro-note">Publishing next: free calculator first, then the paid workbook pack as the upsell.</p>
+        </section>
+
+        <section class="card notes-card">
+          <div class="card-head">
+            <p class="kicker">V1 rules</p>
+            <h2>What this version does on purpose</h2>
+          </div>
+          <ul class="bullet-list">
+            <li>Enter macros and cost for the amount actually used in the batch instead of relying on messy automatic conversions.</li>
+            <li>Use servings to split totals cleanly into per-meal numbers.</li>
+            <li>Keep it fast: no accounts, saved recipes, meal calendars, or pantry tracking in this version.</li>
+          </ul>
+        </section>
+      </main>
+
+      <template id="ingredientRowTemplate">
+        <tr class="ingredient-row">
+          <td><input data-field="name" type="text" placeholder="Chicken breast"></td>
+          <td><input data-field="quantity" type="number" min="0" step="0.01" placeholder="1.5"></td>
+          <td>
+            <select data-field="unit">
+              <option value="lb">lb</option>
+              <option value="oz">oz</option>
+              <option value="g">g</option>
+              <option value="kg">kg</option>
+              <option value="cup">cup</option>
+              <option value="tbsp">tbsp</option>
+              <option value="tsp">tsp</option>
+              <option value="unit">unit</option>
+              <option value="can">can</option>
+              <option value="bag">bag</option>
+              <option value="other">other</option>
+            </select>
+          </td>
+          <td><input data-field="cost" type="number" min="0" step="0.01" placeholder="4.99"></td>
+          <td><input data-field="calories" type="number" min="0" step="1" placeholder="660"></td>
+          <td><input data-field="protein" type="number" min="0" step="0.1" placeholder="124"></td>
+          <td><input data-field="carbs" type="number" min="0" step="0.1" placeholder="0"></td>
+          <td><input data-field="fat" type="number" min="0" step="0.1" placeholder="14"></td>
+          <td><button class="icon-button remove-row" type="button" aria-label="Remove ingredient">x</button></td>
+        </tr>
+      </template>
+
+      <footer class="source-note">
+        <p>Built by <a href="https://victorhale1.gumroad.com" target="_blank" rel="noopener">Victor Hale</a> · Free tool for meal preppers</p>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
